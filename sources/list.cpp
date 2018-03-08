@@ -61,12 +61,12 @@ auto ForwardList::change_color(int c) -> void {
 
 auto ForwardList::Remove(int val) -> bool {
   bool del = false;
-  bool del1 = false;
+  bool del_1 = false;
 
   Node *curr = first;
   Node *ptr = curr;
 
-  if (curr->data == val) del1 = del = true;
+  if (curr->data == val) del_1 = del = true;
 
   curr = curr->next;
 
@@ -82,7 +82,7 @@ auto ForwardList::Remove(int val) -> bool {
     }
   }
 
-  if (del1) {
+  if (del_1) {
     if ((first->data == val) && (first->next == nullptr)) {
       std::cout << "List is empty!" << std::endl;
       //	return false;
