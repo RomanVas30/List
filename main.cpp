@@ -24,11 +24,11 @@ int main(int argc, char *argv[]) {
 
   if (argc == 2) {
     empty = true;
-    string nach = argv[1], nachconst = nach;
+    string mas_str = argv[1], mas_str_const = mas_str;
     int j = 1, tmp = 0;
 
-    for (int i = 0; i < strlen(nachconst.c_str()); i++) {
-      if (nach[i] == ',') {
+    for (int i = 0; i < strlen(mas_str_const.c_str()); i++) {
+      if (mas_str[i] == ',') {
         j++;
       }
     }
@@ -36,15 +36,15 @@ int main(int argc, char *argv[]) {
 
     j = 0;
 
-    Mass[j] = atoi(nach.c_str());
+    Mass[j] = atoi(mas_str.c_str());
     ++j;
 
-    for (int i = 0; i < strlen(nachconst.c_str()); i++) {
-      if (nach[0] != ',') {
-        nach.erase(0, 1);
+    for (int i = 0; i < strlen(mas_str_const.c_str()); i++) {
+      if (mas_str[0] != ',') {
+        mas_str.erase(0, 1);
       } else {
-        nach.erase(0, 1);
-        Mass[j] = atoi(nach.c_str());
+        mas_str.erase(0, 1);
+        Mass[j] = atoi(mas_str.c_str());
         j++;
       }
     }
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 
 auto menu(ForwardList &list, bool empty) -> void {
   int choise;
-  string exit1;
+  string prog_exit;
   while (1) {
     list.change_color(CYAN);
     cout << "Выберите одну из операций: " << endl;
@@ -108,16 +108,16 @@ auto menu(ForwardList &list, bool empty) -> void {
           std::cout << endl;
         } break;
         case 2: {
-          string values, valuesconst;
+          string values, values_const;
           int k = 1;
           list.change_color(CYAN);
           cout << "Введите элементы: ";
           list.change_color(GREEN);
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
           getline(cin, values);
-          valuesconst = values;
+          values_const = values;
 
-          for (int i = 0; i < strlen(valuesconst.c_str()); i++) {
+          for (int i = 0; i < strlen(values_const.c_str()); i++) {
             if (values[i] == ' ') {
               ++k;
             }
@@ -130,7 +130,7 @@ auto menu(ForwardList &list, bool empty) -> void {
           Massiv[k] = atoi(values.c_str());
           ++k;
 
-          for (int i = 0; i < strlen(valuesconst.c_str()); i++) {
+          for (int i = 0; i < strlen(values_const.c_str()); i++) {
             if (values[0] != ' ') {
               values.erase(0, 1);
             } else {
@@ -161,9 +161,9 @@ auto menu(ForwardList &list, bool empty) -> void {
           list.change_color(RED);
           cout << "Вы уверены, что хотите выйти?(yes|no)" << endl;
           list.change_color(GREEN);
-          cin >> exit1;
-          if ((exit1 == "yes") || (exit1 == "YES") || (exit1 == "Yes") ||
-              (exit1 == "y")) {
+          cin >> prog_exit;
+          if ((prog_exit == "yes") || (prog_exit == "YES") || (prog_exit == "Yes") ||
+              (prog_exit == "y")) {
             cout << "До свидания !" << endl;
             exit(0);
           }
