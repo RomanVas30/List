@@ -3,14 +3,15 @@
 using namespace ForwardListName;
 
 auto ForwardList::Add(Node *&curr, int val) -> void {
-  if (curr == nullptr) {
+  if (curr == nullptr) 
     curr = new Node{val, nullptr};
-  } else {
+   else {
     Add(curr->next, val);
   }
 }
 
-auto ForwardList::insert(int val) -> void { Add(first, val); }
+auto ForwardList::insert(int val) -> void { 
+  Add(first, val);}
 
 auto ForwardList::change_color(int c) -> void {
 #ifdef _WIN32
@@ -60,33 +61,45 @@ auto ForwardList::change_color(int c) -> void {
 }
 
 auto ForwardList::Remove(int val) -> bool {
-  bool del = false;
+  bool flag_remove = false;
+  bool del = true;
   bool del_1 = false;
 
   Node *curr = first;
   Node *ptr = curr;
 
-  if (curr->data == val) del_1 = del = true;
-
+  if (curr->data == val) {
+    del_1 = true;
+    flag_remove = true;
+    }
+    else  del = false;
+    
   curr = curr->next;
 
   while (curr != nullptr) {
+    if (flag_remove == false) {
     if (curr->data == val) {
-      del = true;
       ptr->next = curr->next;
       delete curr;
       curr = ptr->next;
+      flag_remove = true;
     } else {
+      del = false;
       ptr = ptr->next;
       curr = curr->next;
     }
+    } else break;
+  }
+
+  if (del == false){
+    std::cout << "Элемент " << val << " отсутствует" << std::endl;
+    del = true;
   }
 
   if (del_1) {
     if ((first->data == val) && (first->next == nullptr)) {
-      std::cout << "List is empty!" << std::endl;
-      //	return false;
-      delete first;
+      std::cout << "Список пуст" << std::endl;
+      return false;
     } else {
       curr = first->next;
       delete first;
@@ -98,10 +111,10 @@ auto ForwardList::Remove(int val) -> bool {
 }
 
 auto ForwardList::print() -> void {
-  /*if (!first){
-          std::cout << "List is empty!"<< std::endl;
-  }*/
-  //	else{
+  if (first == nullptr){
+          std::cout << "Список пуст"<< std::endl;
+  }
+	else{
   Node *curr = new Node{0, nullptr};
   curr = first;
   while (1) {
@@ -110,6 +123,7 @@ auto ForwardList::print() -> void {
     if (curr->next == nullptr) break;
     curr = curr->next;
   }
+	}
 }
 ForwardList::~ForwardList() {
   while (first != nullptr) {
