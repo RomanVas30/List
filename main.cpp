@@ -7,12 +7,12 @@
 using namespace ForwardListName;
 using namespace std;
 
-auto menu(ForwardList &, bool) -> void;
+auto menu(ForwardList&, bool) -> void;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   ForwardList list;
 
-  int n = 1;
+  unsigned int n = 1;
   bool empty = true;
 
   if (argc == 1) {
@@ -25,50 +25,49 @@ int main(int argc, char *argv[]) {
   if (argc == 2) {
     empty = true;
     string mas_str = argv[1], mas_str_const = mas_str;
-    int j = 1, tmp = 0;
+    unsigned j = 1, tmp = 0;
 
-    for (int i = 0; i < strlen(mas_str_const.c_str()); i++) {
+    for (unsigned i = 0; i < strlen(mas_str_const.c_str()); ++i) {
       if (mas_str[i] == ',') {
-        j++;
+        ++j;
       }
     }
-    int *Mass = new int[j];
+    int* Mass = new int[j];
 
     j = 0;
 
     Mass[j] = atoi(mas_str.c_str());
     ++j;
 
-    for (int i = 0; i < strlen(mas_str_const.c_str()); i++) {
+    for (unsigned int i = 0; i < strlen(mas_str_const.c_str()); ++i) {
       if (mas_str[0] != ',') {
         mas_str.erase(0, 1);
       } else {
         mas_str.erase(0, 1);
         Mass[j] = atoi(mas_str.c_str());
-        j++;
+        ++j;
       }
     }
 
-    for (int i = 0; i < j; i++) {
+    for (unsigned int i = 0; i < j; ++i) {
       list.insert(Mass[i]);
     }
 
     menu(list, empty);
 
     delete[] Mass;
-
   } else {
     empty = true;
-    for (int i = 1; i < argc; i++) {
+    for (unsigned int i = 1; i < argc; ++i) {
       ++n;
     }
 
-    int *Mass = new int[n];
+    int* Mass = new int[n];
 
-    for (int i = 1; i < n; i++) {
+    for (int i = 1; i < n; ++i) {
       Mass[i] = atoi(argv[i]);
     }
-    for (int i = 1; i < n; i++) {
+    for (unsigned int i = 1; i < n; ++i) {
       list.insert(Mass[i]);
     }
     menu(list, empty);
@@ -77,8 +76,9 @@ int main(int argc, char *argv[]) {
   }
 }
 
-auto menu(ForwardList &list, bool empty) -> void {
+auto menu(ForwardList& list, bool empty) -> void {
   int choise;
+  bool flag_remove = false;
   string prog_exit;
   while (1) {
     list.change_color(CYAN);
@@ -109,7 +109,7 @@ auto menu(ForwardList &list, bool empty) -> void {
         } break;
         case 2: {
           string values, values_const;
-          int k = 1;
+          unsigned int k = 1;
           list.change_color(CYAN);
           cout << "Введите элементы: ";
           list.change_color(GREEN);
@@ -117,20 +117,20 @@ auto menu(ForwardList &list, bool empty) -> void {
           getline(cin, values);
           values_const = values;
 
-          for (int i = 0; i < strlen(values_const.c_str()); i++) {
+          for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[i] == ' ') {
               ++k;
             }
           }
 
-          int *Massiv = new int[k];
+          int* Massiv = new int[k];
 
           k = 0;
 
           Massiv[k] = atoi(values.c_str());
           ++k;
 
-          for (int i = 0; i < strlen(values_const.c_str()); i++) {
+          for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[0] != ' ') {
               values.erase(0, 1);
             } else {
@@ -140,8 +140,9 @@ auto menu(ForwardList &list, bool empty) -> void {
             }
           }
 
-          for (int i = 0; i < k; i++) {
+          for (unsigned int i = 0; i < k; ++i) {
             list.insert(Massiv[i]);
+            cout << Massiv[i] << endl;
           }
           delete[] Massiv;
         } break;
@@ -152,7 +153,7 @@ auto menu(ForwardList &list, bool empty) -> void {
           list.change_color(GREEN);
           cin >> value;
           list.change_color(RED);
-          list.Remove(value);
+          empty = list.Remove(value);
         } break;
         // case 4:break;
         // case 5:break;
@@ -162,8 +163,8 @@ auto menu(ForwardList &list, bool empty) -> void {
           cout << "Вы уверены, что хотите выйти?(yes|no)" << endl;
           list.change_color(GREEN);
           cin >> prog_exit;
-          if ((prog_exit == "yes") || (prog_exit == "YES") || (prog_exit == "Yes") ||
-              (prog_exit == "y")) {
+          if ((prog_exit == "yes") || (prog_exit == "YES") ||
+              (prog_exit == "Yes") || (prog_exit == "y")) {
             cout << "До свидания !" << endl;
             exit(0);
           }
