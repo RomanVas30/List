@@ -21,6 +21,10 @@ class ForwardList {
 
   auto print() -> void;
 
+  auto item_position(int val) -> bool;
+
+  auto item_replacement(int item_position, int val) -> bool;
+
   ~ForwardList();
 };
 }
