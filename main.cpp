@@ -7,9 +7,9 @@
 using namespace ForwardListName;
 using namespace std;
 
-auto menu(ForwardList&, bool) -> void;
+auto menu(ForwardList &, bool) -> void;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   ForwardList list;
 
   unsigned int n = 1;
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
         ++j;
       }
     }
-    int* Mass = new int[j];
+    int *Mass = new int[j];
 
     j = 0;
 
@@ -56,13 +56,14 @@ int main(int argc, char* argv[]) {
     menu(list, empty);
 
     delete[] Mass;
+
   } else {
     empty = true;
     for (unsigned int i = 1; i < argc; ++i) {
       ++n;
     }
 
-    int* Mass = new int[n];
+    int *Mass = new int[n];
 
     for (int i = 1; i < n; ++i) {
       Mass[i] = atoi(argv[i]);
@@ -76,7 +77,7 @@ int main(int argc, char* argv[]) {
   }
 }
 
-auto menu(ForwardList& list, bool empty) -> void {
+auto menu(ForwardList &list, bool empty) -> void {
   int choise;
   bool flag_remove = false;
   string prog_exit;
@@ -123,7 +124,7 @@ auto menu(ForwardList& list, bool empty) -> void {
             }
           }
 
-          int* Massiv = new int[k];
+          int *Massiv = new int[k];
 
           k = 0;
 
@@ -155,8 +156,36 @@ auto menu(ForwardList& list, bool empty) -> void {
           list.change_color(RED);
           empty = list.Remove(value);
         } break;
-        // case 4:break;
-        // case 5:break;
+        case 4: {
+          int value;
+          list.change_color(CYAN);
+          cout << "Введите значение элемента: ";
+          list.change_color(GREEN);
+          cin >> value;
+          list.item_position(value);
+        } break;
+        case 5: {
+          string values, values_const;
+          int val = 0;
+          unsigned int position = 0;
+          list.change_color(CYAN);
+          cout << "Введите позицию и новое значение: ";
+          list.change_color(GREEN);
+          cin.ignore(numeric_limits<streamsize>::max(), '\n');
+          getline(cin, values);
+          values_const = values;
+          position = atoi(values.c_str());
+
+          for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
+            if (values[0] != ' ') {
+              values.erase(0, 1);
+            } else {
+              values.erase(0, 1);
+              val = atoi(values.c_str());
+            }
+          }
+          list.item_replacement(position, val);
+        } break;
         // case 6:break;
         case 7: {
           list.change_color(RED);
