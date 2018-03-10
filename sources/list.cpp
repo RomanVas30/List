@@ -3,15 +3,14 @@
 using namespace ForwardListName;
 
 auto ForwardList::Add(Node *&curr, int val) -> void {
-  if (curr == nullptr) 
+  if (curr == nullptr)
     curr = new Node{val, nullptr};
-   else {
+  else {
     Add(curr->next, val);
   }
 }
 
-auto ForwardList::insert(int val) -> void { 
-  Add(first, val);}
+auto ForwardList::insert(int val) -> void { Add(first, val); }
 
 auto ForwardList::change_color(int c) -> void {
 #ifdef _WIN32
@@ -71,27 +70,28 @@ auto ForwardList::Remove(int val) -> bool {
   if (curr->data == val) {
     del_1 = true;
     flag_remove = true;
-    }
-    else  del = false;
-    
+  } else
+    del = false;
+
   curr = curr->next;
 
   while (curr != nullptr) {
     if (flag_remove == false) {
-    if (curr->data == val) {
-      ptr->next = curr->next;
-      delete curr;
-      curr = ptr->next;
-      flag_remove = true;
-    } else {
-      del = false;
-      ptr = ptr->next;
-      curr = curr->next;
-    }
-    } else break;
+      if (curr->data == val) {
+        ptr->next = curr->next;
+        delete curr;
+        curr = ptr->next;
+        flag_remove = true;
+      } else {
+        del = false;
+        ptr = ptr->next;
+        curr = curr->next;
+      }
+    } else
+      break;
   }
 
-  if (del == false){
+  if (del == false) {
     std::cout << "Элемент " << val << " отсутствует" << std::endl;
     del = true;
   }
@@ -111,20 +111,65 @@ auto ForwardList::Remove(int val) -> bool {
 }
 
 auto ForwardList::print() -> void {
-  if (first == nullptr){
-          std::cout << "Список пуст"<< std::endl;
+  if (first == nullptr) {
+    std::cout << "Список пуст" << std::endl;
+  } else {
+    Node *curr = new Node{0, nullptr};
+    curr = first;
+    while (1) {
+      if (curr != first) std::cout << " -> ";
+      std::cout << curr->data << " ";
+      if (curr->next == nullptr) break;
+      curr = curr->next;
+    }
   }
-	else{
+}
+
+auto ForwardList::item_position(int val) -> bool {
   Node *curr = new Node{0, nullptr};
   curr = first;
-  while (1) {
-    if (curr != first) std::cout << " -> ";
-    std::cout << curr->data << " ";
-    if (curr->next == nullptr) break;
-    curr = curr->next;
+  bool flag = true;
+  int position = 0;
+  while (curr != nullptr) {
+    if (curr->data == val) {
+      change_color(BLUE);
+      std::cout << position << " ";
+      ++position;
+      curr = curr->next;
+      flag = false;
+    } else {
+      curr = curr->next;
+      ++position;
+    }
   }
-	}
+  if (flag) {
+    change_color(RED);
+    std::cout << "Элемент не найден";
+  }
+  std::cout << std::endl;
 }
+
+auto ForwardList::item_replacement(int item_position, int val) -> bool {
+  Node *curr = new Node{0, nullptr};
+  curr = first;
+  bool flag = true;
+  int position = 0;
+  while (curr != nullptr) {
+    if (position == item_position) {
+      curr->data = val;
+      flag = false;
+      break;
+    } else {
+      curr = curr->next;
+      ++position;
+    }
+  }
+  if (flag) {
+    change_color(RED);
+    std::cout << "Элемент с позицией " << val << " не существует" << std::endl;
+  }
+}
+
 ForwardList::~ForwardList() {
   while (first != nullptr) {
     Node *temp = first->next;
