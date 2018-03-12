@@ -25,6 +25,8 @@ class ForwardList {
 
   auto item_replacement(int item_position, int val) -> bool;
 
+  auto items_sort() -> void;
+
   ~ForwardList();
 };
 }
