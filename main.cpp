@@ -119,7 +119,7 @@ auto menu(ForwardList &list, bool empty) -> void {
           values_const = values;
 
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
-            if (values[i] == ' ') {
+            if ((values[i] == ' ')&&(values[i+1] != ' ')) {
               ++k;
             }
           }
@@ -134,16 +134,16 @@ auto menu(ForwardList &list, bool empty) -> void {
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[0] != ' ') {
               values.erase(0, 1);
-            } else {
+            } else if ((values[1] != ' ')&&(values[1] != values_const[strlen(values_const.c_str())])){
               values.erase(0, 1);
               Massiv[k] = atoi(values.c_str());
               ++k;
             }
+            else values.erase(1, 1);
           }
 
           for (unsigned int i = 0; i < k; ++i) {
             list.insert(Massiv[i]);
-            cout << Massiv[i] << endl;
           }
           delete[] Massiv;
         } break;
@@ -186,7 +186,9 @@ auto menu(ForwardList &list, bool empty) -> void {
           }
           list.item_replacement(position, val);
         } break;
-        // case 6:break;
+        case 6: {
+          list.items_sort();
+        } break;
         case 7: {
           list.change_color(RED);
           cout << "Вы уверены, что хотите выйти?(yes|no)" << endl;
