@@ -70,8 +70,8 @@ auto ForwardList::Remove(int val) -> bool {
   if (curr->data == val) {
     del_1 = true;
     flag_remove = true;
-  } else
-    del = false;
+  }
+  // else  del = false;
 
   curr = curr->next;
 
@@ -87,8 +87,10 @@ auto ForwardList::Remove(int val) -> bool {
         ptr = ptr->next;
         curr = curr->next;
       }
-    } else
+    } else {
+      del = true;
       break;
+    }
   }
 
   if (del == false) {
@@ -99,6 +101,7 @@ auto ForwardList::Remove(int val) -> bool {
   if (del_1) {
     if ((first->data == val) && (first->next == nullptr)) {
       std::cout << "Список пуст" << std::endl;
+      first = nullptr;
       return false;
     } else {
       curr = first->next;
@@ -168,6 +171,45 @@ auto ForwardList::item_replacement(int item_position, int val) -> bool {
     change_color(RED);
     std::cout << "Элемент с позицией " << val << " не существует" << std::endl;
   }
+}
+
+auto ForwardList::items_sort() -> void {
+  int k = 0;
+  Node *curr = new Node{0, nullptr};
+  curr = first;
+  while (curr != nullptr) {
+    ++k;
+    curr = curr->next;
+  }
+
+  curr = first;
+
+  int *Massiv = new int[k];
+
+  k = 0;
+
+  while (curr != nullptr) {
+    Massiv[k] = curr->data;
+    ++k;
+    curr = curr->next;
+  }
+
+  for (unsigned int i = 0; i < k; ++i)
+    for (unsigned int j = 0; j < k - 1; ++j) {
+      if (Massiv[j] > Massiv[j + 1]) {
+        int count = Massiv[j];
+        Massiv[j] = Massiv[j + 1];
+        Massiv[j + 1] = count;
+      }
+    }
+  curr = first;
+  k = 0;
+  while (curr != nullptr) {
+    curr->data = Massiv[k];
+    ++k;
+    curr = curr->next;
+  }
+  delete[] Massiv;
 }
 
 ForwardList::~ForwardList() {
