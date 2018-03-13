@@ -17,7 +17,7 @@ auto ForwardList::change_color(int c) -> void {
   HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
   switch (c) {
-    case BLUE:  // blue color
+    case BLUE: 
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[34m";
 #endif
@@ -25,7 +25,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 3));
 #endif
       break;
-    case GREEN:  // green
+    case GREEN: 
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[32m";
 #endif
@@ -33,7 +33,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 10));
 #endif
       break;
-    case WHITE:  // white
+    case WHITE: 
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[39;49m";
 #endif
@@ -41,7 +41,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
 #endif
       break;
-    case RED:  // red
+    case RED:  
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[31m";
 #endif
