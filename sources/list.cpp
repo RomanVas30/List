@@ -93,6 +93,8 @@ auto ForwardList::Remove(int val) -> bool {
     }
   }
 
+  if (flag_remove == true) del = true;
+
   if (del == false) {
     std::cout << "Элемент " << val << " отсутствует" << std::endl;
     del = true;
