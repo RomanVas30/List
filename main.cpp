@@ -136,8 +136,7 @@ auto menu(ForwardList &list, bool empty) -> void {
             if (values[0] != ' ') {
               values.erase(0, 1);
             } else if ((values[1] != ' ') &&
-                       (values[1] !=
-                        values_const[strlen(values_const.c_str())])) {
+                       (i + 1 != strlen(values_const.c_str()))) {
               values.erase(0, 1);
               Massiv[k] = atoi(values.c_str());
               ++k;
