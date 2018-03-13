@@ -92,6 +92,7 @@ auto menu(ForwardList &list, bool empty) -> void {
     cout << "6. Отсортировать элементы списка" << endl;
     cout << "7. Завершить работу программы" << endl;
     list.change_color(GREEN);
+
     cin >> choise;
 
     if ((empty == false) && (choise == 2)) empty = true;
@@ -119,7 +120,7 @@ auto menu(ForwardList &list, bool empty) -> void {
           values_const = values;
 
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
-            if ((values[i] == ' ')&&(values[i+1] != ' ')) {
+            if ((values[i] == ' ') && (values[i + 1] != ' ')) {
               ++k;
             }
           }
@@ -134,12 +135,14 @@ auto menu(ForwardList &list, bool empty) -> void {
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[0] != ' ') {
               values.erase(0, 1);
-            } else if ((values[1] != ' ')&&(values[1] != values_const[strlen(values_const.c_str())])){
+            } else if ((values[1] != ' ') &&
+                       (values[1] !=
+                        values_const[strlen(values_const.c_str())])) {
               values.erase(0, 1);
               Massiv[k] = atoi(values.c_str());
               ++k;
-            }
-            else values.erase(1, 1);
+            } else
+              values.erase(1, 1);
           }
 
           for (unsigned int i = 0; i < k; ++i) {
