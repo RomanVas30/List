@@ -71,7 +71,6 @@ auto ForwardList::Remove(int val) -> bool {
     del_1 = true;
     flag_remove = true;
   }
-  // else  del = false;
 
   curr = curr->next;
 
