@@ -10,7 +10,7 @@ auto ForwardList::Add(Node *&curr, int val) -> void {
   }
 }
 
-auto ForwardList::insert(int val) -> void { Add(first, val); }
+auto ForwardList::insert(int val) const -> void { Add(first, val); }
 
 auto ForwardList::change_color(int c) -> void {
 #ifdef _WIN32
@@ -114,7 +114,7 @@ auto ForwardList::Remove(int val) -> bool {
   return del;
 }
 
-auto ForwardList::print() -> void {
+auto ForwardList::print() const -> void {
   if (first == nullptr) {
     std::cout << "Список пуст" << std::endl;
   } else {
