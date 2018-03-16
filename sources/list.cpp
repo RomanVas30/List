@@ -115,18 +115,13 @@ auto ForwardList::Remove(int val) -> bool {
 }
 
 auto ForwardList::print() const -> void {
-  if (first == nullptr) {
-    std::cout << "Список пуст" << std::endl;
-  } else {
     Node *curr = new Node{0, nullptr};
     curr = first;
     while (1) {
-      if (curr != first) std::cout << " -> ";
-      std::cout << curr->data << " ";
+      std::cout << curr->data;
       if (curr->next == nullptr) break;
       curr = curr->next;
     }
-  }
 }
 
 auto ForwardList::item_position(int val) -> bool {
