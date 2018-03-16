@@ -7,19 +7,19 @@ struct Node {
 
 class ForwardList {
   Node* first;
+  
+ auto Add(Node*& curr, int val) -> void; 
 
  public:
   ForwardList() { first = nullptr; }
 
-  auto Add(Node*& curr, int val) -> void;
-
-  auto insert(int value) -> void;
+  auto insert(int value) const -> void;
 
   auto change_color(int c) -> void;
 
   auto Remove(int value) -> bool;
 
-  auto print() -> void;
+  auto print() const -> void;
 
   auto item_position(int val) -> bool;
 
