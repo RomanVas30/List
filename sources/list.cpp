@@ -12,12 +12,12 @@ auto ForwardList::Add(Node *&curr, int val) -> void {
 
 auto ForwardList::insert(int val) -> void { Add(first, val); }
 
-auto ForwardList::change_color(int c) -> void {
+auto change_color(int c) -> void {
 #ifdef _WIN32
   HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 #endif
   switch (c) {
-    case BLUE: 
+    case BLUE:  // blue color
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[34m";
 #endif
@@ -25,7 +25,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 3));
 #endif
       break;
-    case GREEN: 
+    case GREEN:  // green
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[32m";
 #endif
@@ -33,7 +33,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 10));
 #endif
       break;
-    case WHITE: 
+    case WHITE:  // white
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[39;49m";
 #endif
@@ -41,7 +41,7 @@ auto ForwardList::change_color(int c) -> void {
       SetConsoleTextAttribute(hConsole, (WORD)((0 << 4) | 15));
 #endif
       break;
-    case RED:  
+    case RED:  // red
 #if defined(__gnu_linux__) || (defined(__APPLE__) && defined(__MACH__))
       std::cout << "\033[31m";
 #endif
@@ -71,6 +71,7 @@ auto ForwardList::Remove(int val) -> bool {
     del_1 = true;
     flag_remove = true;
   }
+  // else  del = false;
 
   curr = curr->next;
 
@@ -216,3 +217,4 @@ ForwardList::~ForwardList() {
     first = temp;
   }
 }
+
