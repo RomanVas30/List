@@ -10,7 +10,7 @@ auto ForwardList::Add(Node *&curr, int val) -> void {
   }
 }
 
-auto ForwardList::insert(int val) const -> void { Add(first, val); }
+auto ForwardList::insert(int val) -> void { Add(first, val); }
 
 auto ForwardList::change_color(int c) -> void {
 #ifdef _WIN32
@@ -118,6 +118,7 @@ auto ForwardList::print() const -> void {
     Node *curr = new Node{0, nullptr};
     curr = first;
     while (1) {
+      if (curr != first) std::cout << " -> ";
       std::cout << curr->data;
       if (curr->next == nullptr) break;
       curr = curr->next;
