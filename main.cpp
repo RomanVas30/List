@@ -50,7 +50,6 @@ int main(int argc, char *argv[]) {
 
     for (unsigned int i = 0; i < j; ++i) {
       list.insert(Mass[i]);
-      if (i+1 != j) cout << " -> ";
     }
 
     menu(list, empty);
@@ -70,7 +69,6 @@ int main(int argc, char *argv[]) {
     }
     for (unsigned int i = 1; i < n; ++i) {
       list.insert(Mass[i]);
-      if (i+1 != n) cout << " -> ";
     }
     menu(list, empty);
 
@@ -147,7 +145,6 @@ auto menu(ForwardList &list, bool empty) -> void {
 
           for (unsigned int i = 0; i < k; ++i) {
             list.insert(Massiv[i]);
-            if (i+1 != k) cout << " -> ";
           }
           delete[] Massiv;
         } break;
