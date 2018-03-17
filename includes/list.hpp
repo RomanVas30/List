@@ -15,8 +15,6 @@ class ForwardList {
   
   auto Add(Node*& curr, int val) -> void;
 
-  auto change_color(int c) -> void;
-
   auto Remove(int value) -> bool;
 
   auto print() const -> void;
