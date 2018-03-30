@@ -69,7 +69,6 @@ int main(int argc, char *argv[]) {
 }
 
 auto menu(ForwardList &list) -> void {
-  // bool flag_remove = false, flag_break = false;
   while (1) {
     change_color(col::CYAN);
     cout << "Выберите одну из операций: " << endl;
@@ -90,8 +89,6 @@ auto menu(ForwardList &list) -> void {
         ;
       cout << "Введено неверное значение!" << endl;
     }
-
-    // if ((empty == false) && (choise == 2)) empty = true;
 
     if ((list.empty()) && (choise != 2) && (choise != 7)) {
       change_color(col::RED);
@@ -144,17 +141,10 @@ auto menu(ForwardList &list) -> void {
                        (i + 1 != strlen(values_const.c_str()))) {
               values.erase(0, 1);
               Massiv[k] = atoi(values.c_str());
-              /*if ((Massiv[k] == 0) && (values[0] != '0')){
-                cout << "Введено неверное значение!" << endl;
-                flag_break = true;
-                break;
-              }*/
               ++k;
             } else
               values.erase(1, 1);
           }
-          // if (flag_break == true)
-          // continue;
 
           for (unsigned int i = 0; i < k; ++i) {
             list.insert(Massiv[i]);
@@ -211,27 +201,14 @@ auto menu(ForwardList &list) -> void {
           values_const = values;
           position = atoi(values.c_str());
 
-          /*if ((position == 0) && (values[0] != '0')){
-                cout << "Введено неверное значение!" << endl;
-                flag_break = true;
-                break;
-              }*/
-
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[0] != ' ') {
               values.erase(0, 1);
             } else {
               values.erase(0, 1);
               val = atoi(values.c_str());
-              /*if ((val == 0) && (values[0] != '0')){
-                cout << "Введено неверное значение!" << endl;
-                flag_break = true;
-                break;
-              }*/
             }
           }
-          /*if (flag_break == true)
-           continue;*/
           bool default_ = false;
           default_ = list.item_replacement(position, val);
           if (!default_) {
