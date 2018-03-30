@@ -199,7 +199,7 @@ auto menu(ForwardList &list, bool empty) -> void {
           if ((prog_exit == "yes") || (prog_exit == "YES") ||
               (prog_exit == "Yes") || (prog_exit == "y")) {
             cout << "До свидания !" << endl;
-            exit(0);
+            return;
           }
         } break;
       }
