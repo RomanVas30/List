@@ -4,25 +4,18 @@
 #include <string>
 #include <limits>
 #include "list.hpp"
-using namespace ForwardListName;
+using namespace List;
 using namespace std;
 
-auto menu(ForwardList &, bool) -> void;
+auto menu(ForwardList &) -> void;
+
+auto change_color(col c) -> void;
 
 int main(int argc, char *argv[]) {
   ForwardList list;
 
   unsigned int n = 1;
-  bool empty = true;
-
-  if (argc == 1) {
-    change_color(RED);
-    empty = false;
-    menu(list, empty);
-  }
-
-  if (argc == 2) {
-    empty = true;
+ if(argc == 2){
     string mas_str = argv[1], mas_str_const = mas_str;
     unsigned j = 1, tmp = 0;
 
@@ -52,12 +45,12 @@ int main(int argc, char *argv[]) {
       list.insert(Mass[i]);
     }
 
-    menu(list, empty);
+    menu(list);
 
     delete[] Mass;
 
-  } else {
-    empty = true;
+  }
+  if(argc >2){
     for (unsigned int i = 1; i < argc; ++i) {
       ++n;
     }
@@ -70,18 +63,16 @@ int main(int argc, char *argv[]) {
     for (unsigned int i = 1; i < n; ++i) {
       list.insert(Mass[i]);
     }
-    menu(list, empty);
+    menu(list);
 
     delete[] Mass;
   }
 }
 
-auto menu(ForwardList &list, bool empty) -> void {
-  int choise;
-  bool flag_remove = false;
-  string prog_exit;
+auto menu(ForwardList &list) -> void {
+  //bool flag_remove = false, flag_break = false;
   while (1) {
-    change_color(CYAN);
+    change_color(col::CYAN);
     cout << "Выберите одну из операций: " << endl;
     cout << "1. Распечатать список " << endl;
     cout << "2. Добавить элементы в список " << endl;
@@ -90,32 +81,43 @@ auto menu(ForwardList &list, bool empty) -> void {
     cout << "5. Заменить элемент на другой" << endl;
     cout << "6. Отсортировать элементы списка" << endl;
     cout << "7. Завершить работу программы" << endl;
-    change_color(GREEN);
-
+    change_color(col::GREEN);
+    int choise = 0;
     cin >> choise;
+    
+    if (!cin){
+      cin.clear();
+      while(cin.get() != '\n');
+      cout << "Введено неверное значение!" << endl;
+    }
 
-    if ((empty == false) && (choise == 2)) empty = true;
+   // if ((empty == false) && (choise == 2)) empty = true;
 
-    if ((empty == false) && (choise != 2) && (choise != 7)) {
-      change_color(RED);
+    if ((list.empty()) && (choise != 2) && (choise != 7)) {
+      change_color(col::RED);
       cout << "Список пуст" << endl;
     }
 
     else {
       switch (choise) {
         case 1: {
-          change_color(BLUE);
+          change_color(col::BLUE);
           list.print();
           std::cout << endl;
         } break;
         case 2: {
           string values, values_const;
           unsigned int k = 1;
-          change_color(CYAN);
+          change_color(col::CYAN);
           cout << "Введите элементы: ";
-          change_color(GREEN);
+          change_color(col::GREEN);
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
           getline(cin, values);
+           while (!cin){
+            cin.clear();
+            cout << "Введено неверное значение!" << endl;
+            cin.get();
+          }
           values_const = values;
 
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
@@ -129,6 +131,10 @@ auto menu(ForwardList &list, bool empty) -> void {
           k = 0;
 
           Massiv[k] = atoi(values.c_str());
+          if ((Massiv[k] == 0) && (values[0] != '0')){
+          cout << "Введено неверное значение!" << endl;
+          continue;
+          }
           ++k;
 
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
@@ -139,10 +145,17 @@ auto menu(ForwardList &list, bool empty) -> void {
                         strlen(values_const.c_str()))) {
               values.erase(0, 1);
               Massiv[k] = atoi(values.c_str());
+              /*if ((Massiv[k] == 0) && (values[0] != '0')){
+                cout << "Введено неверное значение!" << endl;
+                flag_break = true;
+                break;
+              }*/
               ++k;
             } else
               values.erase(1, 1);
           }
+          //if (flag_break == true)
+            //continue;
 
           for (unsigned int i = 0; i < k; ++i) {
             list.insert(Massiv[i]);
@@ -151,50 +164,91 @@ auto menu(ForwardList &list, bool empty) -> void {
         } break;
         case 3: {
           int value;
-          change_color(CYAN);
+          change_color(col::CYAN);
           cout << "Введите значение элемента: ";
-          change_color(GREEN);
+          change_color(col::GREEN);
           cin >> value;
-          change_color(RED);
-          empty = list.Remove(value);
+           if (!cin){
+            cin.clear();
+            cout << "Введено неверное значение!" << endl;
+            cin.get();
+            break;
+          }
+          else{
+          bool default_ = false;
+          change_color(col::RED);
+          default_ = list.Remove(value);
+          if (!default_)
+          std::cout << "Элемент " << value << " отсутствует" << std::endl;
+          }
         } break;
         case 4: {
           int value;
-          change_color(CYAN);
+          change_color(col::CYAN);
           cout << "Введите значение элемента: ";
-          change_color(GREEN);
+          change_color(col::GREEN);
           cin >> value;
-          list.item_position(value);
+           if (!cin){
+            cin.clear();
+            cout << "Введено неверное значение!" << endl;
+            cin.get();
+            break;
+          }
+          bool default_ = false;
+          default_ = list.item_position(value);
+          if(!default_){
+              change_color(col::RED);
+              std::cout << "Элемент отсутствует" << std::endl;
+          }
         } break;
         case 5: {
           string values, values_const;
           int val = 0;
           unsigned int position = 0;
-          change_color(CYAN);
+          change_color(col::CYAN);
           cout << "Введите позицию и новое значение: ";
-          change_color(GREEN);
+          change_color(col::GREEN);
           cin.ignore(numeric_limits<streamsize>::max(), '\n');
           getline(cin, values);
           values_const = values;
           position = atoi(values.c_str());
 
+          /*if ((position == 0) && (values[0] != '0')){
+                cout << "Введено неверное значение!" << endl;
+                flag_break = true;
+                break;
+              }*/
+          
           for (unsigned int i = 0; i < strlen(values_const.c_str()); ++i) {
             if (values[0] != ' ') {
               values.erase(0, 1);
             } else {
               values.erase(0, 1);
               val = atoi(values.c_str());
+              /*if ((val == 0) && (values[0] != '0')){
+                cout << "Введено неверное значение!" << endl;
+                flag_break = true;
+                break;
+              }*/
             }
           }
-          list.item_replacement(position, val);
+           /*if (flag_break == true)
+            continue;*/
+            bool default_ = false;
+          default_ = list.item_replacement(position, val);
+          if(!default_){
+              change_color(col::RED);
+              std::cout << "Элемент с позицией " << position << " не существует" << std::endl;
+          }
         } break;
         case 6: {
           list.items_sort();
         } break;
         case 7: {
-          change_color(RED);
+          string prog_exit;
+          change_color(col::RED);
           cout << "Вы уверены, что хотите выйти?(yes|no)" << endl;
-          change_color(GREEN);
+          change_color(col::GREEN);
           cin >> prog_exit;
           if ((prog_exit == "yes") || (prog_exit == "YES") ||
               (prog_exit == "Yes") || (prog_exit == "y")) {
@@ -206,4 +260,6 @@ auto menu(ForwardList &list, bool empty) -> void {
     }
   }
 }
+
+
 
