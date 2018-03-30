@@ -9,7 +9,7 @@ class ForwardList {
   Node* first;
 
  public:
-  ForwardList() { first = nullptr; }
+  ForwardList() : first{nullptr}{};
 
   auto insert(int value) -> void;
   
