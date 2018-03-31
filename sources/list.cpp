@@ -147,6 +147,23 @@ auto ForwardList::item_replacement(int item_position, int val) -> bool {
     return false;
 }
 
+auto quick_sort(int *mass, int n) -> void {
+  int i = 0, j = n, p = mass[n >> 1];
+  do {
+    while (mass[i] < p) ++i;
+    while (mass[j] > p) --j;
+
+    if (i <= j) {
+      std::swap(mass[i], mass[j]);
+      ++i;
+      --j;
+    }
+  } while (i <= j);
+
+  if (j > 0) quick_sort(mass, j);
+  if (n > i) quick_sort(mass + i, n - i);
+}
+
 auto ForwardList::items_sort() -> void {
   int k = 0;
   Node *curr = new Node{0, nullptr};
@@ -167,16 +184,7 @@ auto ForwardList::items_sort() -> void {
     ++k;
     curr = curr->next;
   }
-
-  for (unsigned int i = 0; i < k; ++i)
-    for (unsigned int j = 0; j < k - 1; ++j) {
-      if (Massiv[j] > Massiv[j + 1]) {
-        // int count = Massiv[j];
-        // Massiv[j] = Massiv[j + 1];
-        // Massiv[j + 1] = count;
-        std::swap(Massiv[j], Massiv[j + 1]);
-      }
-    }
+  quick_sort(Massiv, --k);
   curr = first;
   k = 0;
   while (curr != nullptr) {
